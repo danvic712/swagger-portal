@@ -1,0 +1,9 @@
+{
+  "culture": "en",
+  "texts": {
+    "Ingos:Applications:000001": "This application name is empty!",
+    "Ingos:Applications:000002": "The application name is already existed!",
+    "Application:ApplicationWithSameCodeExists": "The application code is already existed!",
+    "Application:ServiceExisted": "This service is already existed in this application!"
+  }
+}
