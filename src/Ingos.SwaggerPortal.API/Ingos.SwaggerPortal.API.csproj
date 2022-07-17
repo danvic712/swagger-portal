@@ -15,7 +15,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Controllers" />
       <Folder Include="wwwroot" />
     </ItemGroup>
 
@@ -28,8 +27,9 @@
       <PackageReference Include="Volo.Abp.Caching.StackExchangeRedis" Version="5.3.0" />
       <PackageReference Include="Volo.Abp.AspNetCore.Serilog" Version="5.3.0" />
       <PackageReference Include="Volo.Abp.Swashbuckle" Version="5.3.0" />
-      <PackageReference Include="Volo.Abp.AutoMapper" Version="5.3.0"/>
-      <PackageReference Include="Volo.Abp.Ddd.Application" Version="5.3.0"/>
+      <PackageReference Include="Volo.Abp.AutoMapper" Version="5.3.0" />
+      <PackageReference Include="Volo.Abp.Ddd.Application" Version="5.3.0" />
+      <PackageReference Include="Yarp.ReverseProxy" Version="1.1.1" />
     </ItemGroup>
 
     <ItemGroup>

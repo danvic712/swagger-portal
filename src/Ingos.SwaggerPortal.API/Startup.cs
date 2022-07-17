@@ -5,28 +5,27 @@
 // Author: Danvic.Wang
 // Created DateTime: 2022-06-18 17:18
 // Modified by:
-// Description:
+// Description: Application start up configuration
 // -----------------------------------------------------------------------
 
-namespace Ingos.SwaggerPortal.API
+namespace Ingos.SwaggerPortal.API;
+
+/// <summary>
+///     Application start up configuration
+/// </summary>
+public class Startup
 {
     /// <summary>
-    ///     Application start up configuration
     /// </summary>
-    public class Startup
+    public void ConfigureServices(IServiceCollection services)
     {
-        /// <summary>
-        /// </summary>
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddApplication<IngosAppModule>();
-        }
+        services.AddApplication<IngosAppModule>();
+    }
 
-        /// <summary>
-        /// </summary>
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            app.InitializeApplication();
-        }
+    /// <summary>
+    /// </summary>
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        app.InitializeApplication();
     }
 }

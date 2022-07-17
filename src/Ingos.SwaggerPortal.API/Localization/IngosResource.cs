@@ -1,9 +1,8 @@
 ﻿using Volo.Abp.Localization;
 
-namespace Ingos.SwaggerPortal.API.Localization
+namespace Ingos.SwaggerPortal.API.Localization;
+
+[LocalizationResourceName("Ingos")]
+public class IngosResource
 {
-    [LocalizationResourceName("Ingos")]
-    public class IngosResource
-    {
-    }
 }
