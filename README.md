@@ -1,3 +1,4 @@
-# swagger-portal
+# Ingos.AspNetCore.Swagger
 
-Just a swagger portal
+A Swagger extension toolkit package for ASP.NET Core
+

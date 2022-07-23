@@ -1,9 +1,0 @@
-{
-  "culture": "zh-Hans",
-  "texts": {
-    "Ingos:Applications:000001": "应用名称不能为空！",
-    "Ingos:Applications:000002": "当前应用名称已存在！",
-    "Application:ApplicationWithSameCodeExists": "当前应用代号已存在！",
-    "Application:ServiceExisted": "当前应用服务已存在于此应用中！"
-  }
-}
