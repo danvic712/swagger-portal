@@ -23,4 +23,3 @@ namespace Ingos.AspNetCore.Swagger.Middlewares.SwaggerUI
         }
     }
 }
-

@@ -10,22 +10,19 @@
 
 using System;
 using System.Linq;
+using Ingos.AspNetCore.Swagger;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
-#if NETSTANDARD2_0
-using IWebHostEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
-#endif
-
-namespace Ingos.AspNetCore.Swagger.DependencyInjection
+// ReSharper disable CheckNamespace
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class IngosSwaggerBuilderExtension
     {
         /// <summary>
-        /// Register the Swagger middleware with provided options into the HTTP request pipeline
+        ///     Register the Swagger middleware with provided options into the HTTP request pipeline
         /// </summary>
-        public static IApplicationBuilder UseIngosSwagger(this IApplicationBuilder app, SwaggerOptions options)
+        public static IApplicationBuilder UseIngosSwagger(this IApplicationBuilder app, IngosSwaggerOptions options)
         {
             // Configure Swagger middleware
             //
@@ -50,16 +47,16 @@ namespace Ingos.AspNetCore.Swagger.DependencyInjection
         }
 
         /// <summary>
-        /// Register the Swagger middleware with optional setup action for DI-injected options
+        ///     Register the Swagger middleware with optional setup action for DI-injected options
         /// </summary>
         public static IApplicationBuilder UseIngosSwagger(
             this IApplicationBuilder app,
-            Action<SwaggerOptions> setupAction = null)
+            Action<IngosSwaggerOptions> setupAction = null)
         {
-            SwaggerOptions options;
+            IngosSwaggerOptions options;
             using (var scope = app.ApplicationServices.CreateScope())
             {
-                options = scope.ServiceProvider.GetRequiredService<IOptionsSnapshot<SwaggerOptions>>().Value;
+                options = scope.ServiceProvider.GetRequiredService<IOptionsSnapshot<IngosSwaggerOptions>>().Value;
                 setupAction?.Invoke(options);
             }
 

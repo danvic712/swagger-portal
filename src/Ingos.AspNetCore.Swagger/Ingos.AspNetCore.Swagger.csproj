@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>netstandard2.0;netcoreapp3.1;net5.0;net6.0</TargetFrameworks>
+        <TargetFrameworks>netcoreapp3.1;net5.0;net6.0</TargetFrameworks>
         <SignAssembly>true</SignAssembly>
         <AssemblyOriginatorKeyFile>Ingos.AspNetCore.Swagger.snk</AssemblyOriginatorKeyFile>
         <Description>A Swagger extension toolkit package for ASP.NET Core</Description>
@@ -17,29 +17,34 @@
     </PropertyGroup>
 
     <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-        <PackageReference Include="Microsoft.AspNetCore.Routing" Version="2.2.2" />
-        <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.1.0" />
-        <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="2.1.0" />
-        <PackageReference Include="System.Text.Json" Version="4.6.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.ApiExplorer" Version="2.2.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.DataAnnotations" Version="2.1.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.Routing" Version="2.2.2"/>
+        <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0"/>
+        <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="2.1.0"/>
+        <PackageReference Include="System.Text.Json" Version="4.6.0"/>
     </ItemGroup>
 
     <ItemGroup Condition=" '$(TargetFramework)' != 'netstandard2.0' ">
-        <FrameworkReference Include="Microsoft.AspNetCore.App" />
+        <FrameworkReference Include="Microsoft.AspNetCore.App"/>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" />
-      <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.4.0" />
-      <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.4.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0"/>
+        <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.4.0"/>
+        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.4.0"/>
+        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.4.0"/>
+        <PackageReference Include="Yarp.ReverseProxy" Version="1.1.1"/>
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="index.html" />
-      <EmbeddedResource Include="index.html" />
-      <None Update="logo.png">
-        <Pack>True</Pack>
-        <PackagePath></PackagePath>
-      </None>
+        <None Remove="index.html"/>
+        <EmbeddedResource Include="index.html"/>
+        <None Update="logo.png">
+            <Pack>True</Pack>
+            <PackagePath></PackagePath>
+        </None>
     </ItemGroup>
 
 </Project>
