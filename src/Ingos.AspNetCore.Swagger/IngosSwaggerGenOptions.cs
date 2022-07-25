@@ -24,10 +24,14 @@ namespace Ingos.AspNetCore.Swagger
         /// <summary>
         ///     Open Api info
         /// </summary>
-        public OpenApiInfo OpenApiInfo { get; set; } = new OpenApiInfo()
+        public OpenApiInfo OpenApiInfo { get; set; } = new OpenApiInfo
         {
             Title = "Ingos Backend API"
         };
+        // public IDictionary<string, OpenApiInfo> OpenApiInfo { get; set; } = new Dictionary<string, OpenApiInfo>
+        // {
+        //     { "v1", new OpenApiInfo { Title = "Ingos Backend API", Version = "v1"} }
+        // };
 
         /// <summary>
         ///     The paths of api comment's xml

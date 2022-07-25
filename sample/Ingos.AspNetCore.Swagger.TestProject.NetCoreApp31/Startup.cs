@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 
 namespace Ingos.AspNetCore.Swagger.TestProject.NetCoreApp31
 {
@@ -20,7 +21,17 @@ namespace Ingos.AspNetCore.Swagger.TestProject.NetCoreApp31
         {
             services.AddControllers();
 
-            services.AddIngosSwagger();
+            services.AddIngosSwagger(options =>
+            {
+                options.OpenApiInfo = new OpenApiInfo
+                {
+                    Title = "ASP.NET Core 3.1 Web API Project",
+                    Contact = new OpenApiContact
+                    {
+                        Email = "fake@email.com"
+                    }
+                };
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

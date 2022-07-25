@@ -20,7 +20,7 @@ namespace Ingos.AspNetCore.Swagger.TestProject.Net50
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSwaggerGen(c =>
+            services.AddIngosSwagger(c =>
             {
                 c.SwaggerDoc("v1",
                     new OpenApiInfo { Title = "Ingos.AspNetCore.Swagger.TestProject.Net50", Version = "v1" });
@@ -33,9 +33,7 @@ namespace Ingos.AspNetCore.Swagger.TestProject.Net50
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c =>
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ingos.AspNetCore.Swagger.TestProject.Net50 v1"));
+                app.UseIngosSwagger();
             }
 
             app.UseHttpsRedirection();
