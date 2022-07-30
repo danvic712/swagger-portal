@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -23,13 +24,10 @@ namespace Ingos.AspNetCore.Swagger.TestProject.NetCoreApp31
 
             services.AddIngosSwagger(options =>
             {
-                options.OpenApiInfo = new OpenApiInfo
+                options.ApiVersioning = false;
+                options.OpenApiDescriptor = new OpenApiDescriptor
                 {
-                    Title = "ASP.NET Core 3.1 Web API Project",
-                    Contact = new OpenApiContact
-                    {
-                        Email = "fake@email.com"
-                    }
+                    Name = "22",
                 };
             });
         }
@@ -39,7 +37,13 @@ namespace Ingos.AspNetCore.Swagger.TestProject.NetCoreApp31
         {
             if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
 
-            app.UseIngosSwagger();
+            app.UseIngosSwagger(options =>
+            {
+                options.Documents = new List<IngosSwaggerDocumentDescriptor>()
+                {
+                    new IngosSwaggerDocumentDescriptor() { Path = "/swagger/22/swagger.json", Name = "222" }
+                };
+            });
 
             app.UseHttpsRedirection();
 

@@ -5,10 +5,11 @@
 // Author: Danvic.Wang
 // Created DateTime: 2022-07-24 16:40
 // Modified by:
-// Description:
+// Description: Ingos Swagger Document Generate Configuration Options
 // -----------------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.Reflection;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
@@ -17,25 +18,35 @@ namespace Ingos.AspNetCore.Swagger
     public class IngosSwaggerGenOptions : SwaggerGenOptions
     {
         /// <summary>
-        ///     Enable API versioning, the default value is true
-        /// </summary>
-        public bool EnableApiVersioning { get; set; } = true;
-
-        /// <summary>
         ///     Open Api info
         /// </summary>
-        public OpenApiInfo OpenApiInfo { get; set; } = new OpenApiInfo
-        {
-            Title = "Ingos Backend API"
-        };
-        // public IDictionary<string, OpenApiInfo> OpenApiInfo { get; set; } = new Dictionary<string, OpenApiInfo>
-        // {
-        //     { "v1", new OpenApiInfo { Title = "Ingos Backend API", Version = "v1"} }
-        // };
+        public OpenApiDescriptor OpenApiDescriptor = new OpenApiDescriptor();
 
         /// <summary>
-        ///     The paths of api comment's xml
+        ///     Whether to enable API versioning, the default value is true.
+        ///     If set to true, it will set api version
         /// </summary>
-        public IList<string> ApiCommentPaths { get; set; } = new List<string>();
+        public bool ApiVersioning { get; set; } = true;
+
+        /// <summary>
+        ///     The paths of API comment's xml
+        /// </summary>
+        public IList<string> XmlCommentPaths { get; set; } = new List<string>();
+    }
+
+    public class OpenApiDescriptor
+    {
+        /// <summary>
+        ///     Global metadata to be included in the Swagger output
+        /// </summary>
+        public OpenApiInfo OpenApiInfo = new OpenApiInfo
+        {
+            Title = Assembly.GetCallingAssembly().GetName().Name
+        };
+
+        /// <summary>
+        ///     A URI-friendly name that uniquely identifies the document
+        /// </summary>
+        public string Name { get; set; } = "v1";
     }
 }

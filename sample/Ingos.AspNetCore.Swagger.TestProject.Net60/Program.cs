@@ -9,7 +9,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddIngosSwagger(options =>
 {
-    options.OpenApiInfo = new OpenApiInfo()
+    options.OpenApiDescriptor.OpenApiInfo = new OpenApiInfo()
     {
         Title = "ASP.NET Core 6.0 Web API Project",
         Contact = new OpenApiContact()

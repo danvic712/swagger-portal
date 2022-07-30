@@ -1,48 +1,25 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file= "SwaggerOptions.cs">
+// <copyright file= "IngosSwaggerOptions.cs">
 //     Copyright (c) Danvic.Wang All rights reserved.
 // </copyright>
 // Author: Danvic.Wang
-// Created DateTime: 2022-07-23 18:23
+// Created DateTime: 2022-07-30 18:16
 // Modified by:
-// Description:
+// Description: Ingos Swagger Configuration Options
 // -----------------------------------------------------------------------
-
-using System.Collections.Generic;
 
 namespace Ingos.AspNetCore.Swagger
 {
     public class IngosSwaggerOptions
     {
         /// <summary>
-        ///     Whether to enable swagger proxy.
-        ///     If set to true, the swagger page of another service can be proxied
+        /// Swagger Generate Options
         /// </summary>
-        public bool EnableProxy { get; set; } = true;
+        public IngosSwaggerGenOptions SwaggerGenOptions { get; set; } = new IngosSwaggerGenOptions();
 
         /// <summary>
-        ///     Swagger generated files.
+        /// Swagger UI Options
         /// </summary>
-        public IList<IngosSwaggerDocumentDescriptor> Documents { get; set; } =
-            new List<IngosSwaggerDocumentDescriptor>();
-    }
-
-    public class IngosSwaggerDocumentDescriptor
-    {
-        /// <summary>
-        ///     Generated Swagger file path
-        ///     eg. /swagger/v1/swagger.json
-        /// </summary>
-        public string Path { get; set; }
-
-        /// <summary>
-        ///     The display order, default load the latest version
-        /// </summary>
-        public int Order { get; set; }
-
-        /// <summary>
-        ///     The document display name
-        /// </summary>
-        public string Name { get; set; }
+        public IngosSwaggerUIOptions SwaggerUIOptions { get; set; } = new IngosSwaggerUIOptions();
     }
 }

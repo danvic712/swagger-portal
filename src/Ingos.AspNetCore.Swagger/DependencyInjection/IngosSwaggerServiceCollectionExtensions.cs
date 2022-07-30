@@ -5,7 +5,7 @@
 // Author: Danvic.Wang
 // Created DateTime: 2022-07-24 16:10
 // Modified by:
-// Description:
+// Description: Service Collections Extension Methods
 // -----------------------------------------------------------------------
 
 using System;
@@ -63,43 +63,46 @@ namespace Microsoft.Extensions.DependencyInjection
                 .Value;
             setupAction?.Invoke(options);
 
-            if (options.EnableApiVersioning) services.AddIngosApiVersion();
+            if (options.ApiVersioning) services.AddIngosApiVersion();
 
             services.AddSwaggerGen(s =>
             {
-                // Generate api doc by api version info
-                //
-                if (options.EnableApiVersioning)
+                switch (options.ApiVersioning)
                 {
-                    var provider = services.BuildServiceProvider().GetRequiredService<IApiVersionDescriptionProvider>();
-
-                    foreach (var description in provider.ApiVersionDescriptions)
+                    // Generate api doc by api version info
+                    //
+                    case true:
                     {
-                        options.OpenApiInfo.Version = description.ApiVersion.ToString();
-                        s.SwaggerDoc(description.GroupName, options.OpenApiInfo);
+                        var provider = services.BuildServiceProvider().GetRequiredService<IApiVersionDescriptionProvider>();
+
+                        foreach (var description in provider.ApiVersionDescriptions)
+                        {
+                            options.OpenApiDescriptor.OpenApiInfo.Version = description.ApiVersion.ToString();
+                            s.SwaggerDoc(description.GroupName, options.OpenApiDescriptor.OpenApiInfo);
+                        }
+
+                        // Show api version in the url which swagger doc generated
+                        s.DocInclusionPredicate((version, apiDescription) =>
+                        {
+                            // Just show this version's api
+                            if (!version.Equals(apiDescription.GroupName))
+                                return false;
+
+                            var values = apiDescription.RelativePath
+                                .Split('/')
+                                .Select(v => v.Replace("v{version}", apiDescription.GroupName));
+                            apiDescription.RelativePath = string.Join("/", values);
+
+                            return true;
+                        });
+
+                        // Remove version param must input in swagger doc
+                        s.OperationFilter<RemoveVersionFromParameter>();
+                        break;
                     }
-
-                    // Show api version in the url which swagger doc generated
-                    s.DocInclusionPredicate((version, apiDescription) =>
-                    {
-                        // Just show this version's api
-                        if (!version.Equals(apiDescription.GroupName))
-                            return false;
-
-                        var values = apiDescription.RelativePath
-                            .Split('/')
-                            .Select(v => v.Replace("v{version}", apiDescription.GroupName));
-                        apiDescription.RelativePath = string.Join("/", values);
-
-                        return true;
-                    });
-
-                    // Remove version param must input in swagger doc
-                    s.OperationFilter<RemoveVersionFromParameter>();
-                }
-                else
-                {
-                    s.SwaggerDoc("v1", options.OpenApiInfo);
+                    default:
+                        s.SwaggerDoc(options.OpenApiDescriptor.Name, options.OpenApiDescriptor.OpenApiInfo);
+                        break;
                 }
 
                 // Let params use the camel naming method
@@ -107,7 +110,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
                 // Get project's api description file
                 //
-                GetSwaggerDocPaths(options.ApiCommentPaths, Path.GetDirectoryName(AppContext.BaseDirectory))
+                GetSwaggerDocPaths(options.XmlCommentPaths, Path.GetDirectoryName(AppContext.BaseDirectory))
                     .ForEach(x => s.IncludeXmlComments(x, true));
             });
 

@@ -5,7 +5,7 @@
 // Author: Danvic.Wang
 // Created DateTime: 2022-07-23 18:12
 // Modified by:
-// Description:
+// Description: Application Builder Extension Methods
 // -----------------------------------------------------------------------
 
 using System;
@@ -22,7 +22,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <summary>
         ///     Register the Swagger middleware with provided options into the HTTP request pipeline
         /// </summary>
-        public static IApplicationBuilder UseIngosSwagger(this IApplicationBuilder app, IngosSwaggerOptions options)
+        public static IApplicationBuilder UseIngosSwagger(this IApplicationBuilder app, IngosSwaggerUIOptions options)
         {
             // Configure Swagger middleware
             //
@@ -35,13 +35,14 @@ namespace Microsoft.Extensions.DependencyInjection
             });
 
             // Configure Yarp middleware
-            if (options.EnableProxy)
-                app.UseIngosSwaggerProxies();
+            if (options.HubMode)
+                app.UseIngosSwaggerProxies(options);
 
             return app;
         }
 
-        private static IApplicationBuilder UseIngosSwaggerProxies(this IApplicationBuilder app)
+        private static IApplicationBuilder UseIngosSwaggerProxies(this IApplicationBuilder app,
+            IngosSwaggerUIOptions ingosSwaggerOptions)
         {
             return app;
         }
@@ -51,12 +52,12 @@ namespace Microsoft.Extensions.DependencyInjection
         /// </summary>
         public static IApplicationBuilder UseIngosSwagger(
             this IApplicationBuilder app,
-            Action<IngosSwaggerOptions> setupAction = null)
+            Action<IngosSwaggerUIOptions> setupAction = null)
         {
-            IngosSwaggerOptions options;
+            IngosSwaggerUIOptions options;
             using (var scope = app.ApplicationServices.CreateScope())
             {
-                options = scope.ServiceProvider.GetRequiredService<IOptionsSnapshot<IngosSwaggerOptions>>().Value;
+                options = scope.ServiceProvider.GetRequiredService<IOptionsSnapshot<IngosSwaggerUIOptions>>().Value;
                 setupAction?.Invoke(options);
             }
 
